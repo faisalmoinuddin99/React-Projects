@@ -11,6 +11,15 @@ export default function TextForm(props) {
     setText(newText);
   };
 
+  const handleCopyText = () => {
+    let copyText = document.getElementById("myBox");
+    copyText.select();
+    navigator.clipboard.writeText(copyText.value);
+  };
+  const handleExtraSpaces = () => {
+    let extraSpaces = text.split(/[ ]+/);
+    setText(extraSpaces.join(" "));
+  };
   const handleOnChange = (event) => {
     //console.log("on change");
     setText(event.target.value);
@@ -19,6 +28,11 @@ export default function TextForm(props) {
     let lowercaseText = text.toLowerCase();
     setText(lowercaseText);
   };
+  const handleClearText = () => {
+    if (window.confirm("are you sure")) {
+      setText("");
+    }
+  };
   return (
     <>
       <div className="container">
@@ -26,7 +40,7 @@ export default function TextForm(props) {
         <div className="mb-3">
           <textarea
             className="form-control"
-            id="exampleFormControlTextarea1"
+            id="myBox"
             rows="8"
             value={text}
             placeholder="Enter text here...."
@@ -38,6 +52,15 @@ export default function TextForm(props) {
         </button>
         <button className="btn btn-primary mx-3" onClick={handleLowerCase}>
           Convert to Lowercase
+        </button>
+        <button className="btn btn-danger" onClick={handleClearText}>
+          Clear Text
+        </button>
+        <button className="btn btn-primary mx-3" onClick={handleCopyText}>
+          Copy Text
+        </button>
+        <button className="btn btn-primary " onClick={handleExtraSpaces}>
+          Fix Extra Spaces
         </button>
       </div>
 
