@@ -17,7 +17,9 @@ export default function TextForm(props) {
     navigator.clipboard.writeText(copyText.value);
   };
   const handleExtraSpaces = () => {
+    // let extraSpaces = text.split(/[ ]+/);
     let extraSpaces = text.split(/[ ]+/);
+
     setText(extraSpaces.join(" "));
   };
   const handleOnChange = (event) => {
@@ -35,7 +37,12 @@ export default function TextForm(props) {
   };
   return (
     <>
-      <div className="container">
+      <div
+        className="container"
+        style={{
+          color: props.mode === "dark" ? "white" : "#042743",
+        }}
+      >
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
@@ -44,6 +51,10 @@ export default function TextForm(props) {
             rows="8"
             value={text}
             placeholder="Enter text here...."
+            style={{
+              backgroundColor: props.mode === "dark" ? "#042743" : "white",
+              color: props.mode === "dark" ? "white" : "#042743",
+            }}
             onChange={handleOnChange}
           ></textarea>
         </div>
@@ -64,14 +75,19 @@ export default function TextForm(props) {
         </button>
       </div>
 
-      <div className="container my-3">
+      <div
+        className="container my-3"
+        style={{
+          color: props.mode === "dark" ? "white" : "#042743",
+        }}
+      >
         <h2>Your Text Summary</h2>
         <p>
           {text.split(" ").length - 1} words {text.length} characters
         </p>
         <p>{0.008 * text.split(" ").length} Minutes read</p>
         <h2>Preview</h2>
-        <p> {text}</p>
+        <p> {text.length > 0 ? text : "Enter somthing to preview your text"}</p>
       </div>
     </>
   );
